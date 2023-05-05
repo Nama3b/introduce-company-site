@@ -21,7 +21,7 @@ class RoleController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function common(Request $request): mixed
+    public function list(Request $request): mixed
     {
 
         list($instance, $filter, $editor, $create) = $this->buildInstance($request);
@@ -39,7 +39,6 @@ class RoleController extends Controller
             ->render('admin.pages.index', compact('filter', 'editor', 'options', 'config', 'create', 'permission'));
     }
 
-
     /**
      * @return Collection
      */
@@ -48,12 +47,11 @@ class RoleController extends Controller
         return Permission::pluck('id', 'name');
     }
 
-
     /**
      * @param Role $role
      * @return JsonResponse
      */
-    public function show(Role $role): JsonResponse
+    public function detail(Role $role): JsonResponse
     {
         return $this->withComponentErrorHandling(function () use ($role) {
             return fractal()
@@ -61,7 +59,20 @@ class RoleController extends Controller
                 ->transformWith(new RoleTransformer())
                 ->respond();
         });
+    }
 
+    /**
+     * @param RoleRequest $request
+     * @return JsonResponse
+     */
+    public function store(RoleRequest $request): JsonResponse
+    {
+        return $this->withComponentErrorHandling(function () use ($request) {
+            $role = Role::create($request->only(['name', 'code']));
+            $role->permissions()->sync($request->input('permission'));
+            $this->flushCacheSync();
+            return $this->respondOk();
+        });
     }
 
     /**
@@ -78,7 +89,6 @@ class RoleController extends Controller
             $this->flushCacheSync();
             return $this->respondOk();
         });
-
     }
 
     /**
@@ -91,22 +101,6 @@ class RoleController extends Controller
             $role->delete();
             return $this->respondOk();
         });
-
-    }
-
-    /**
-     * @param RoleRequest $request
-     * @return JsonResponse
-     */
-    public function store(RoleRequest $request): JsonResponse
-    {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            $role = Role::create($request->only(['name', 'code']));
-            $role->permissions()->sync($request->input('permission'));
-            $this->flushCacheSync();
-            return $this->respondOk();
-        });
-
     }
 
     /**

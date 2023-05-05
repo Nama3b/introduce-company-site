@@ -62,7 +62,6 @@ class Permission extends Model
     const EDIT = 'EDIT_PERMISSION';
     const DELETE = 'DELETE_PERMISSION';
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -73,14 +72,12 @@ class Permission extends Model
         'description',
     ];
 
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'permissions';
-
 
     /**
      * @return BelongsToMany

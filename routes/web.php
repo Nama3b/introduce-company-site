@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CategoryPost\CategoryPostController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -84,4 +86,37 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
     Route::delete('permission/delete/{permission}', [PermissionController::class, 'delete'])
         ->name('permission.delete')
         ->middleware(['checkManagerPermission:DELETE_PERMISSION']);
+
+    Route::get('post', [PostController::class, 'list'])
+        ->name('post')
+        ->middleware(['checkManagerPermission:VIEW_NEWS']);
+    Route::get('post/detail/{post}', [PostController::class, 'detail'])
+        ->name('post.detail')
+        ->middleware(['checkManagerPermission:VIEW_NEWS']);
+    Route::post('post/store', [PostController::class, 'store'])
+        ->name('post.store')
+        ->middleware(['checkManagerPermission:CREATE_NEWS']);
+    Route::post('post/edit/{post}', [PostController::class, 'update'])
+        ->name('post.edit')
+        ->middleware(['checkManagerPermission:EDIT_NEWS']);
+    Route::delete('post/delete/{post}', [PostController::class, 'delete'])
+        ->name('post.delete')
+        ->middleware(['checkManagerPermission:DELETE_NEWS']);
+
+    Route::get('category_post', [CategoryPostController::class, 'list'])
+        ->name('category_post')
+        ->middleware(['checkManagerPermission:VIEW_NEWS']);
+    Route::get('category_post/detail/{category_post}', [CategoryPostController::class, 'detail'])
+        ->name('category_post.detail')
+        ->middleware(['checkManagerPermission:VIEW_NEWS']);
+    Route::post('category_post/store', [CategoryPostController::class, 'store'])
+        ->name('category_post.store')
+        ->middleware(['checkManagerPermission:CREATE_NEWS']);
+    Route::post('category_post/edit/{category_post}', [CategoryPostController::class, 'update'])
+        ->name('category_post.edit')
+        ->middleware(['checkManagerPermission:EDIT_NEWS']);
+    Route::delete('category_post/delete/{category_post}', [CategoryPostController::class, 'delete'])
+        ->name('category_post.delete')
+        ->middleware(['checkManagerPermission:DELETE_NEWS']);
+
 });

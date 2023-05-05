@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryPost;
 use App\Models\Permission;
+use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use App\Support\HandleComponentError;
@@ -30,6 +32,14 @@ class Controller extends BaseController
         'role' => [
             'database' => 'App\DataTables\User\RoleDataTable',
             'role_create' => Role::CREATE,
+        ],
+        'post' => [
+            'database' => 'App\DataTables\User\PostDataTable',
+            'role_create' => Post::CREATE,
+        ],
+        'category_post' => [
+            'database' => 'App\DataTables\User\CategoryPostDataTable',
+            'role_create' => CategoryPost::CREATE,
         ]
     ];
 

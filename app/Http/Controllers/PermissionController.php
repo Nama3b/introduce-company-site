@@ -35,7 +35,6 @@ class PermissionController extends Controller
             ->render('admin.pages.index', compact('filter', 'editor', 'create'));
     }
 
-
     /**
      * @param Permission $permission
      * @return JsonResponse
@@ -47,6 +46,18 @@ class PermissionController extends Controller
                 ->item($permission)
                 ->transformWith(new PermissionTransformer())
                 ->respond();
+        });
+    }
+
+    /**
+     * @param PermissionRequest $request
+     * @return JsonResponse
+     */
+    public function store(PermissionRequest $request): JsonResponse
+    {
+        return $this->withComponentErrorHandling(function () use ($request) {
+            Permission::create($request->all());
+            return $this->respondOk();
         });
     }
 
@@ -72,18 +83,6 @@ class PermissionController extends Controller
     {
         return $this->withComponentErrorHandling(function () use ($permission) {
             $permission->delete();
-            return $this->respondOk();
-        });
-    }
-
-    /**
-     * @param PermissionRequest $request
-     * @return JsonResponse
-     */
-    public function store(PermissionRequest $request): JsonResponse
-    {
-        return $this->withComponentErrorHandling(function () use ($request) {
-            Permission::create($request->all());
             return $this->respondOk();
         });
     }
