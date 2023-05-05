@@ -6,6 +6,7 @@ use App\Http\Requests\RoleRequest;
 use App\Models\Permission;
 use App\Models\PermissionRole;
 use App\Models\Role;
+use App\Support\HandleComponentError;
 use App\Transformers\User\RoleTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class RoleController extends Controller
 {
+    use HandleComponentError;
 
     /**
      * @param Request $request

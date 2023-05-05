@@ -55,13 +55,12 @@ class Role extends Model
 {
     use Cachable;
 
+    const CREATE = 'CREATE_ROLE';
     const VIEW = 'VIEW_ROLE';
     const EDIT = 'EDIT_ROLE';
     const DELETE = 'DELETE_ROLE';
-    const CREATE = 'CREATE_ROLE';
-
-
     const ROLE_SUPER_ADMIN_ID = 1;
+
     /**
      * The attributes that are mass assignable.
      *
