@@ -57,10 +57,10 @@ class Permission extends Model
 {
     use Cachable;
 
+    const CREATE = 'CREATE_PERMISSION';
     const VIEW = 'VIEW_PERMISSION';
     const EDIT = 'EDIT_PERMISSION';
     const DELETE = 'DELETE_PERMISSION';
-    const CREATE = 'CREATE_PERMISSION';
 
 
     /**

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\PermissionRequest;
 use App\Models\Permission;
+use App\Support\HandleComponentError;
 use App\Transformers\User\PermissionTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
+    use HandleComponentError;
     /**
      * Create a new controller instance.
      *
@@ -24,7 +26,7 @@ class PermissionController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function common(Request $request): mixed
+    public function list(Request $request): mixed
     {
 
         list($instance, $filter, $editor, $create) = $this->buildInstance($request);
@@ -38,7 +40,7 @@ class PermissionController extends Controller
      * @param Permission $permission
      * @return JsonResponse
      */
-    public function show(Permission $permission): JsonResponse
+    public function detail(Permission $permission): JsonResponse
     {
         return $this->withComponentErrorHandling(function () use ($permission) {
             return fractal()
@@ -46,7 +48,6 @@ class PermissionController extends Controller
                 ->transformWith(new PermissionTransformer())
                 ->respond();
         });
-
     }
 
     /**
@@ -61,7 +62,6 @@ class PermissionController extends Controller
 
             return $this->respondOk();
         });
-
     }
 
     /**
@@ -74,7 +74,6 @@ class PermissionController extends Controller
             $permission->delete();
             return $this->respondOk();
         });
-
     }
 
     /**
@@ -87,7 +86,6 @@ class PermissionController extends Controller
             Permission::create($request->all());
             return $this->respondOk();
         });
-
     }
 
 }
