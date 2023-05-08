@@ -34,11 +34,11 @@ class Controller extends BaseController
             'role_create' => Role::CREATE,
         ],
         'post' => [
-            'database' => 'App\DataTables\User\PostDataTable',
+            'database' => 'App\DataTables\PostDataTable',
             'role_create' => Post::CREATE,
         ],
         'category_post' => [
-            'database' => 'App\DataTables\User\CategoryPostDataTable',
+            'database' => 'App\DataTables\CategoryPostDataTable',
             'role_create' => CategoryPost::CREATE,
         ]
     ];
