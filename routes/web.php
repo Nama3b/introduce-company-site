@@ -87,22 +87,6 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
         ->name('permission.delete')
         ->middleware(['checkManagerPermission:DELETE_PERMISSION']);
 
-    Route::get('post', [PostController::class, 'list'])
-        ->name('post')
-        ->middleware(['checkManagerPermission:VIEW_NEWS']);
-    Route::get('post/detail/{post}', [PostController::class, 'detail'])
-        ->name('post.detail')
-        ->middleware(['checkManagerPermission:VIEW_NEWS']);
-    Route::post('post/store', [PostController::class, 'store'])
-        ->name('post.store')
-        ->middleware(['checkManagerPermission:CREATE_NEWS']);
-    Route::post('post/edit/{post}', [PostController::class, 'update'])
-        ->name('post.edit')
-        ->middleware(['checkManagerPermission:EDIT_NEWS']);
-    Route::delete('post/delete/{post}', [PostController::class, 'delete'])
-        ->name('post.delete')
-        ->middleware(['checkManagerPermission:DELETE_NEWS']);
-
     Route::get('category_post', [CategoryPostController::class, 'list'])
         ->name('category_post')
         ->middleware(['checkManagerPermission:VIEW_NEWS']);
@@ -117,6 +101,22 @@ Route::middleware(['auth:web'])->prefix('admin')->group(function () {
         ->middleware(['checkManagerPermission:EDIT_NEWS']);
     Route::delete('category_post/delete/{category_post}', [CategoryPostController::class, 'delete'])
         ->name('category_post.delete')
+        ->middleware(['checkManagerPermission:DELETE_NEWS']);
+
+    Route::get('post', [PostController::class, 'list'])
+        ->name('post')
+        ->middleware(['checkManagerPermission:VIEW_NEWS']);
+    Route::get('post/detail/{post}', [PostController::class, 'detail'])
+        ->name('post.detail')
+        ->middleware(['checkManagerPermission:VIEW_NEWS']);
+    Route::post('post/store', [PostController::class, 'store'])
+        ->name('post.store')
+        ->middleware(['checkManagerPermission:CREATE_NEWS']);
+    Route::post('post/edit/{post}', [PostController::class, 'update'])
+        ->name('post.edit')
+        ->middleware(['checkManagerPermission:EDIT_NEWS']);
+    Route::delete('post/delete/{post}', [PostController::class, 'delete'])
+        ->name('post.delete')
         ->middleware(['checkManagerPermission:DELETE_NEWS']);
 
 });
