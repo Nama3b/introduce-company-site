@@ -10,16 +10,16 @@ class DetailCategoryPostTransformer extends TransformerAbstract
 {
 
     /**
-     * @param CategoryPost $categoryPost
+     * @param CategoryPost $post
      * @return array
      */
-    #[ArrayShape([])] public function transform(CategoryPost $categoryPost): array
+    #[ArrayShape([])] public function transform(CategoryPost $post): array
     {
         return [
-            'id' => $categoryPost->id,
-            'type' => $categoryPost->type,
-            'position' => $categoryPost->position,
-            'status' => $categoryPost->status
+            'id' => $post->id,
+            'type' => $post->type,
+            'position' => $post->position,
+            'status' => $post->status
         ];
     }
 }
