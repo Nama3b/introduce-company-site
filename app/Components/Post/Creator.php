@@ -2,12 +2,12 @@
 
 namespace App\Components\Post;
 
-use App\Components\FormRequestClass;
-use App\Models\CategoryPost;
+use App\Components\PostCommonClass;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 
-class Creator extends FormRequestClass
+class Creator extends PostCommonClass
 {
 
     /**
@@ -19,10 +19,10 @@ class Creator extends FormRequestClass
     }
 
     /**
-     * @return Model|CategoryPost
+     * @return Model|Post
      */
-    public function create(): Model|CategoryPost
+    public function create(): Model|Post
     {
-        return CategoryPost::create($this->buildCreateData());
+        return Post::create($this->buildCreateData());
     }
 }

@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryPost\EditCategoryPostRequest;
 use App\Http\Requests\CategoryPost\StoreCategoryPostRequest;
 use App\Models\CategoryPost;
-use App\Models\Post;
 use App\Support\WithPaginationLimit;
 use App\Transformer\CategoryPost\DetailCategoryPostTransformer;
 use Illuminate\Http\JsonResponse;
@@ -28,8 +27,8 @@ class CategoryPostController extends Controller
     {
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
-        $options = Post::POST_TYPE;
-        $data = Post::pluck('id', 'post_type');
+        $options = CategoryPost::TYPE;
+        $data = CategoryPost::pluck('id', 'post_type');
 
         $config = [
             "placeholder" => "Select multiple options..",
@@ -40,6 +39,10 @@ class CategoryPostController extends Controller
             ->render('admin.pages.index', compact('filter', 'editor', 'modal_size', 'create', 'options', 'config', 'data'));
     }
 
+    /**
+     * @param StoreCategoryPostRequest $request
+     * @return JsonResponse
+     */
     public function store(StoreCategoryPostRequest $request): JsonResponse
     {
         return $this->withComponentErrorHandling(function () use ($request) {
@@ -51,10 +54,15 @@ class CategoryPostController extends Controller
         });
     }
 
-    public function edit(CategoryPost $categoryPost, EditCategoryPostRequest $request): JsonResponse
+    /**
+     * @param CategoryPost $post
+     * @param EditCategoryPostRequest $request
+     * @return JsonResponse
+     */
+    public function edit(CategoryPost $post, EditCategoryPostRequest $request): JsonResponse
     {
-        return $this->withComponentErrorHandling(function () use ($categoryPost, $request) {
-            $status = (new Editor($request))->edit($categoryPost);
+        return $this->withComponentErrorHandling(function () use ($post, $request) {
+            $status = (new Editor($request))->edit($post);
 
             return $status ?
                 $this->respondOk() :
@@ -62,10 +70,15 @@ class CategoryPostController extends Controller
         });
     }
 
-    public function delete(CategoryPost $categoryPost, Request $request)
+    /**
+     * @param CategoryPost $post
+     * @param Request $request
+     * @return JsonResponse|mixed
+     */
+    public function delete(CategoryPost $post, Request $request): mixed
     {
-        return $this->withComponentErrorHandling(function () use ($categoryPost, $request) {
-            $status = $categoryPost->delete();
+        return $this->withComponentErrorHandling(function () use ($post, $request) {
+            $status = $post->delete();
 
             return $status ?
                 $this->respondOk() :
@@ -73,12 +86,16 @@ class CategoryPostController extends Controller
         });
     }
 
-    public function detail(CategoryPost $categoryPost)
+    /**
+     * @param CategoryPost $post
+     * @return JsonResponse|mixed
+     */
+    public function detail(CategoryPost $post): mixed
     {
-        return $this->withComponentErrorHandling(function () use ($categoryPost) {
+        return $this->withComponentErrorHandling(function () use ($post) {
 
             return fractal()
-                ->item($categoryPost)
+                ->item($post)
                 ->transformWith(new DetailCategoryPostTransformer())
                 ->respond();
         });

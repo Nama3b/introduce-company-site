@@ -46,7 +46,6 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const POST_TYPE = ['ABOUT', 'NEWS', 'PRODUCT'];
     const CREATE = 'CREATE_CATEGORY_POST';
     const VIEW = 'VIEW_CATEGORY_POST';
     const EDIT = 'EDIT_CATEGORY_POST';

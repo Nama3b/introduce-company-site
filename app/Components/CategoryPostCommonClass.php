@@ -8,7 +8,7 @@ use App\Support\WithRequestSupport;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-class FormRequestClass
+class CategoryPostCommonClass
 {
     use WithPaginationLimit, WithFilterSupport, WithRequestSupport;
 
@@ -29,41 +29,41 @@ class FormRequestClass
 
     /**
      * @param bool $edit
-     * @param $categoryPost
+     * @param $post
      * @return array
      */
-    public function buildCreateData(bool $edit = false, $categoryPost = null): array
+    public function buildCreateData(bool $edit = false, $post = null): array
     {
-        return $edit ? $this->buildCategoryPostData($edit, $categoryPost) :
-            array_merge($this->buildCategoryPostData($edit, $categoryPost), [
-                'type' => $this->makeField($categoryPost, $edit, 'type')
+        return $edit ? $this->buildCategoryPostData($edit, $post) :
+            array_merge($this->buildCategoryPostData($edit, $post), [
+                'type' => $this->makeField($post, $edit, 'type')
             ]);
     }
 
     /**
      * @param bool $edit
-     * @param $categoryPost
+     * @param $post
      * @return array
      */
-    #[ArrayShape([])] private function buildCategoryPostData(bool $edit = false, $categoryPost = null): array
+    #[ArrayShape([])] private function buildCategoryPostData(bool $edit = false, $post = null): array
     {
         return [
-            'type' => $this->makeField($categoryPost, $edit, 'type'),
-            'position' => $this->makeField($categoryPost, $edit, 'position'),
-            'status' => $this->makeField($categoryPost, $edit, 'status')
+            'type' => $this->makeField($post, $edit, 'type'),
+            'position' => $this->makeField($post, $edit, 'position'),
+            'status' => $this->makeField($post, $edit, 'status')
         ];
     }
 
     /**
-     * @param $categoryPost
+     * @param $post
      * @param $edit
      * @param string $fil
      * @return mixed
      */
-    private function makeField($categoryPost, $edit, string $fil = ''): mixed
+    private function makeField($post, $edit, string $fil = ''): mixed
     {
         return $this->existField($edit) ?
-            $categoryPost->{$fil} :
+            $post->{$fil} :
             $this->request->input($fil);
     }
 

@@ -28,21 +28,21 @@ class CategoryPostDataTable extends DataTable
             ->filter(function ($query) {
                 $this->buildQuerySearch($query);
             })
-            ->addColumn(__('generate.translate.button.action'), function (CategoryPost $categoryPost) {
-                return $this->buildAction($categoryPost);
+            ->addColumn(__('generate.translate.button.action'), function (CategoryPost $post) {
+                return $this->buildAction($post);
             })
-            ->addColumn('checkbox', function (CategoryPost $categoryPost) {
-                return $this->checkbox($categoryPost);
+            ->addColumn('checkbox', function (CategoryPost $post) {
+                return $this->checkbox($post);
             })
-            ->editColumn('type', function (CategoryPost $categoryPost) {
-                return match ($categoryPost->type) {
+            ->editColumn('type', function (CategoryPost $post) {
+                return match ($post->type) {
                     'ABOUT' => 'About',
                     'NEWS' => 'News',
                     'PRODUCT' => 'Product'
                 };
             })
-            ->editColumn('status', function (CategoryPost $categoryPost) {
-                return match ($categoryPost->status) {
+            ->editColumn('status', function (CategoryPost $post) {
+                return match ($post->status) {
                     1 => 'Active',
                     0 => 'Locked'
                 };
