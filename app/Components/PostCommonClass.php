@@ -18,7 +18,6 @@ class PostCommonClass
      */
     protected FormRequest $request;
 
-
     /**
      * Create new request instance.
      */
@@ -26,19 +25,6 @@ class PostCommonClass
     {
         $this->request = $request;
     }
-
-//    /**
-//     * @param bool $edit
-//     * @param null $post
-//     * @return array
-//     */
-//    public function buildCreateData(bool $edit = false, $post = null): array
-//    {
-//        return $edit ? $this->buildPostData($edit, $post) :
-//            array_merge($this->buildPostData($edit, $post), [
-//                'post_type' => $this->makeField($post, $edit, 'post_type')
-//            ]);
-//    }
 
     /**
      * @param bool $edit

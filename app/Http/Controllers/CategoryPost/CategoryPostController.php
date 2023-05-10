@@ -28,7 +28,7 @@ class CategoryPostController extends Controller
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
         $options = CategoryPost::TYPE;
-        $data = CategoryPost::pluck('id', 'post_type');
+        $data = CategoryPost::pluck('type', 'id');
 
         $config = [
             "placeholder" => "Select multiple options..",
