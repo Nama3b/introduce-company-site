@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components;
+namespace App\Components\Common;
 
 use App\Support\WithFilterSupport;
 use App\Support\WithPaginationLimit;
@@ -8,8 +8,9 @@ use App\Support\WithRequestSupport;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-class CategoryPostCommonClass
+class UserCommonClass
 {
+
     use WithPaginationLimit, WithFilterSupport, WithRequestSupport;
 
     /**
@@ -17,7 +18,6 @@ class CategoryPostCommonClass
      *
      */
     protected FormRequest $request;
-
 
     /**
      * Create new request instance.
@@ -32,25 +32,18 @@ class CategoryPostCommonClass
      * @param $post
      * @return array
      */
-    public function buildCreateData(bool $edit = false, $post = null): array
-    {
-        return $edit ? $this->buildCategoryPostData($edit, $post) :
-            array_merge($this->buildCategoryPostData($edit, $post), [
-                'type' => $this->makeField($post, $edit, 'type')
-            ]);
-    }
-
-    /**
-     * @param bool $edit
-     * @param $post
-     * @return array
-     */
-    #[ArrayShape([])] private function buildCategoryPostData(bool $edit = false, $post = null): array
+    #[ArrayShape([])] public function buildCreateData(bool $edit = false, $post = null): array
     {
         return [
-            'type' => $this->makeField($post, $edit, 'type'),
-            'position' => $this->makeField($post, $edit, 'position'),
-            'status' => $this->makeField($post, $edit, 'status')
+            'user_name' => $this->makeField($post, $edit, 'user_name'),
+            'email' => $this->makeField($post, $edit, 'email'),
+            'password' => $this->makeField($post, $edit, 'password'),
+            'full_name' => $this->makeField($post, $edit, 'full_name'),
+            'birthday' => $this->makeField($post, $edit, 'birthday'),
+            'phone_number' => $this->makeField($post, $edit, 'phone_number'),
+            'address' => $this->makeField($post, $edit, 'address'),
+            'image' => $this->request->hasFile('image') ? $this->uploadImage() : $post->image,
+            'status' => $this->makeField($post, $edit, 'status'),
         ];
     }
 
@@ -65,6 +58,14 @@ class CategoryPostCommonClass
         return $this->existField($edit) ?
             $post->{$fil} :
             $this->request->input($fil);
+    }
+
+    /**
+     * @return bool|string
+     */
+    private function uploadImage(): bool|string
+    {
+        return $this->request->file('image')->store('image', ['disk' => 'public']);
     }
 
     /**

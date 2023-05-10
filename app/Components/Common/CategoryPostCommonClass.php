@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components;
+namespace App\Components\Common;
 
 use App\Support\WithFilterSupport;
 use App\Support\WithPaginationLimit;
@@ -8,7 +8,7 @@ use App\Support\WithRequestSupport;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-class PostCommonClass
+class CategoryPostCommonClass
 {
     use WithPaginationLimit, WithFilterSupport, WithRequestSupport;
 
@@ -17,6 +17,7 @@ class PostCommonClass
      *
      */
     protected FormRequest $request;
+
 
     /**
      * Create new request instance.
@@ -31,15 +32,25 @@ class PostCommonClass
      * @param $post
      * @return array
      */
-    #[ArrayShape([])] public function buildCreateData(bool $edit = false, $post = null): array
+    public function buildCreateData(bool $edit = false, $post = null): array
+    {
+        return $edit ? $this->buildCategoryPostData($edit, $post) :
+            array_merge($this->buildCategoryPostData($edit, $post), [
+                'type' => $this->makeField($post, $edit, 'type')
+            ]);
+    }
+
+    /**
+     * @param bool $edit
+     * @param $post
+     * @return array
+     */
+    #[ArrayShape([])] private function buildCategoryPostData(bool $edit = false, $post = null): array
     {
         return [
-            'post_type' => $this->makeField($post, $edit, 'post_type'),
-            'title' => $this->makeField($post, $edit, 'title'),
-            'description' => $this->makeField($post, $edit, 'description'),
-            'image' => $this->makeField($post, $edit, 'image'),
-            'url' => $this->makeField($post, $edit, 'url'),
-            'status' => $this->makeField($post, $edit, 'status'),
+            'type' => $this->makeField($post, $edit, 'type'),
+            'position' => $this->makeField($post, $edit, 'position'),
+            'status' => $this->makeField($post, $edit, 'status')
         ];
     }
 
