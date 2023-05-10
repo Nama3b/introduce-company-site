@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->string('url');
-            $table->boolean('status')->default(0);
+            $table->enum('status', ['WAITING', 'ACTIVE', 'CLOSED'])->default('WAITING');
             $table->timestamps();
             $table->softDeletes();
 

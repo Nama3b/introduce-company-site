@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use League\Fractal\TransformerAbstract;
 use Storage;
 
-class DetailPostTransformer extends TransformerAbstract
+class ListPostTransformer extends TransformerAbstract
 {
     #[ArrayShape([])] public function transform(Post $post): array
     {
@@ -15,7 +15,6 @@ class DetailPostTransformer extends TransformerAbstract
             'id' => $post->id,
             'post_type' => $post->post_type,
             'title' => $post->title,
-            'description' => $post->description,
             'image' => Storage::url($post->image),
             'url' => $post->url,
             'status' => $post->status

@@ -26,7 +26,7 @@ use Illuminate\Support\Carbon;
  * @property string $description
  * @property string $image
  * @property string $url
- * @property int $status
+ * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -46,6 +46,7 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const STATUS = ['WAITING', 'ACTIVE', 'CLOSED'];
     const CREATE = 'CREATE_CATEGORY_POST';
     const VIEW = 'VIEW_CATEGORY_POST';
     const EDIT = 'EDIT_CATEGORY_POST';

@@ -34,12 +34,14 @@ class PostController extends Controller
     {
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 
-        $options = [
+        $options = Post::STATUS;
+
+        $config = [
             "placeholder" => "Select multiple options..",
             "allowClear" => true
         ];
         return (new $instance)
-            ->render('admin.pages.post', compact('options', 'filter', 'editor', 'modal_size', 'create'));
+            ->render('admin.pages.post', compact('options', 'config', 'filter', 'editor', 'modal_size', 'create'));
     }
 
     /**
