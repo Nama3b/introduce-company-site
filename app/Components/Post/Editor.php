@@ -2,7 +2,7 @@
 
 namespace App\Components\Post;
 
-use App\Components\PostCommonClass;
+use App\Components\Common\PostCommonClass;
 use App\Models\Post;
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -2,12 +2,12 @@
 
 namespace App\Components\CategoryPost;
 
-use App\Components\FormRequestClass;
+use App\Components\Common\CategoryPostCommonClass;
 use App\Models\CategoryPost;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 
-class Creator extends FormRequestClass
+class Creator extends CategoryPostCommonClass
 {
 
     /**

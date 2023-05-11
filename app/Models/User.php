@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Eloquent;
 use Exception;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,13 +23,20 @@ use Laravel\Sanctum\PersonalAccessToken;
  * App\Models\User
  *
  * @property int $id
- * @property string $name
+ * @property string $user_name
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
+ * @property string|null $full_name
+ * @property string|null $birthday
+ * @property string|null $phone_number
+ * @property string|null $address
+ * @property string|null $image
+ * @property int $status
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
@@ -39,17 +46,24 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User newQuery()
  * @method static Builder|User onlyTrashed()
  * @method static Builder|User query()
+ * @method static Builder|User whereAddress($value)
+ * @method static Builder|User whereBirthday($value)
  * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereDeletedAt($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereFullName($value)
  * @method static Builder|User whereId($value)
- * @method static Builder|User whereName($value)
+ * @method static Builder|User whereImage($value)
  * @method static Builder|User wherePassword($value)
+ * @method static Builder|User wherePhoneNumber($value)
  * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereStatus($value)
  * @method static Builder|User whereUpdatedAt($value)
+ * @method static Builder|User whereUserName($value)
  * @method static Builder|User withTrashed()
  * @method static Builder|User withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
@@ -103,6 +117,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'full_name',
+        'birthday',
+        'phone_number',
+        'address',
+        'image',
+        'status'
     ];
 
     /**
