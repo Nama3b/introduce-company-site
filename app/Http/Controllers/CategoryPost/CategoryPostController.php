@@ -18,12 +18,19 @@ class CategoryPostController extends Controller
 {
     use WithPaginationLimit;
 
+    /**
+     * @return RedirectResponse
+     */
     public function index(): RedirectResponse
     {
         return redirect()->route('category_post');
     }
 
-    public function list(Request $request)
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function list(Request $request): mixed
     {
         list($instance, $filter, $editor, $modal_size, $create) = $this->buildInstance($request);
 

@@ -42,11 +42,14 @@ class CategoryPostDataTable extends DataTable
                 };
             })
             ->editColumn('status', function (CategoryPost $post) {
-                return match ($post->status) {
-                    1 => 'Active',
-                    0 => 'Locked'
-                };
+                return $this->buildStatus($post->status);
             })
+//            ->editColumn('status', function (CategoryPost $post) {
+//                return match ($post->status) {
+//                    1 => 'Active',
+//                    0 => 'Locked'
+//                };
+//            })
             ->rawColumns([__('generate.translate.button.action'), 'type', 'status']);
     }
 
@@ -101,6 +104,16 @@ class CategoryPostDataTable extends DataTable
             . '<input id="checkRow-' . $categoryPost->id . '" class="custom-control-input" type="checkbox" value="' . $categoryPost->id . '" />'
             . '<label for="checkRow-' . $categoryPost->id . '" class="custom-control-label"></label>'
             . '</div>';
+    }
+
+    /**
+     * @param $status
+     * @return string
+     */
+    private function buildStatus($status): string
+    {
+        return $status ? '<span class="badge badge-success on">' . __("generate.translate.button.on") . '</span>' :
+            '<span class="badge badge-danger off">' . __("generate.translate.button.off") . '</span>';
     }
 
     /**
